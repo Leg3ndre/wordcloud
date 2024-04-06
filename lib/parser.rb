@@ -20,10 +20,10 @@ class Parser
   end
 
   def top_words
-    @words.group_by(&:feature)
-          .map { |_feature, group| [group.first.surface, group.count] }
-          .sort_by { |count| count[1] }
-          .reverse
+    group = @words.group_by { |node| "#{node.surface}:#{node.feature}" }
+                  .map { |_feature, group| [group.first.surface, group.count] }
+                  .sort_by { |count| count[1] }
+                  .reverse
   end
 
   private
