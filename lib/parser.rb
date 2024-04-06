@@ -5,6 +5,8 @@ require './lib/const'
 
 # Wrapper of natto (morphological analyzer)
 class Parser
+  attr_reader :words
+
   def initialize
     option = DICT_PATH ? "-d #{DICT_PATH}" : nil
     @nm = Natto::MeCab.new(option)
@@ -17,8 +19,11 @@ class Parser
     end
   end
 
-  def words
-    @words.map(&:surface)
+  def counts
+    @words.group_by { |node| node.feature }
+          .map { |feature, group| [group.first.surface, group.count] }
+          .sort_by { |count| count[1] }
+          .reverse
   end
 
   private
