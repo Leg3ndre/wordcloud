@@ -18,6 +18,7 @@ class Source
     @content.gsub!(/(あ|か|さ|だ|な|ま|や|～)ぁ/) { "#{Regexp.last_match(1)}あ" }
     @content.gsub!(/[！？]+/, '。')
     @content.gsub!(/\.{3}/, '')
+    @content.gsub!(/⤴/, '')
     @content.tr!('～', 'ー')
   end
 end

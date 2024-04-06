@@ -21,7 +21,7 @@ class Parser
 
   def top_words
     @words.group_by { |word| word[:identifier] }
-          .map { |_feature, group| [group.first[:original], group.count] }
+          .map { |_feature, group| [group.first[:surface], group.count] }
           .sort_by { |count| count[1] }
           .reverse
   end
@@ -33,6 +33,8 @@ class Parser
     {
       original: original_form,
       identifier: "#{original_form}:#{node.feature}",
+      surface: node.surface,
+      data: node.inspect,
     }
   end
 
