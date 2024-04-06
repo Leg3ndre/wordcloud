@@ -4,12 +4,20 @@ require './lib/source'
 require './lib/parser'
 require 'magic_cloud'
 
+output_filename = ARGV[0] || 'test.png'
+output_path = "#{OUTPUT_DIRECTORY}/#{output_filename}"
+
 source = Source.new
 parser = Parser.new
 parser.parse!(source.content)
-# puts parser.words
 
-words = parser.counts.slice(0, TOP_WORDS_NUM)
-pp words
-cloud = MagicCloud::Cloud.new(words, rotate: :free, scale: :sqrt, font_family: 'Unifont')
-cloud.draw(500, 250).write('test.png')
+top_words = parser.top_words.slice(0, TOP_WORDS_NUM)
+pp top_words
+
+cloud = MagicCloud::Cloud.new(
+  top_words,
+  rotate: :none,
+  scale: :sqrt,
+  font_family: 'IPA明朝'
+)
+cloud.draw(OUTPUT_WIDTH, OUTPUT_HEIGHT).write(output_path)

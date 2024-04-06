@@ -32,9 +32,10 @@ $ sudo apt install libmagickcore-dev
 ```
 
  ### フォントの準備
- 日本語に対応しているフォントが異様に少ないらしい。
+ 日本語に対応しているフォントを入れておく必要がある。
  ```sh
- $ sudo apt-get install -y unifont
+ $ sudo apt install -y fonts-ipafont
+ $ fc-cache -fv
  ```
 
 

@@ -19,7 +19,7 @@ class Parser
     end
   end
 
-  def counts
+  def top_words
     @words.group_by { |node| node.feature }
           .map { |feature, group| [group.first.surface, group.count] }
           .sort_by { |count| count[1] }
