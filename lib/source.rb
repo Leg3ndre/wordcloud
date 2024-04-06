@@ -13,8 +13,8 @@ class Source
   private
 
   def sanitize
-    @content.gsub!(/(ほ|お)ォ/) { "#{$1}お" }
-    @content.gsub!(/(あ|か|さ|だ|な|ま|や|～)ぁ/) { "#{$1}あ" }
+    @content.gsub!(/(ほ|お)ォ/) { "#{Regexp.last_match(1)}お" }
+    @content.gsub!(/(あ|か|さ|だ|な|ま|や|～)ぁ/) { "#{Regexp.last_match(1)}あ" }
     @content.gsub!(/[！？]+/, '。')
     @content.gsub!(/\.{3}/, '')
     @content.tr!('～', 'ー')
