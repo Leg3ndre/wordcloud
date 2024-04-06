@@ -8,11 +8,12 @@ class Source
 
   def initialize
     @content = File.read(SOURCE_PATH)
+    sanitize!
   end
 
   private
 
-  def sanitize
+  def sanitize!
     @content.gsub!(/(ほ|お)ォ/) { "#{Regexp.last_match(1)}お" }
     @content.gsub!(/(あ|か|さ|だ|な|ま|や|～)ぁ/) { "#{Regexp.last_match(1)}あ" }
     @content.gsub!(/[！？]+/, '。')
