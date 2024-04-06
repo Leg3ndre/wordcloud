@@ -15,7 +15,9 @@ PART_SYMBOL         = '記号'
 PART_INTERJECTION   = '感動詞'
 PART_OTHER          = 'その他'
 
-PARSER_VALID_PARTS = [PART_NOUN, PART_VERB, PART_ADJECTIVE].freeze
+PARSER_VALID_PARTS = [PART_NOUN].freeze
+# PARSER_VALID_PARTS = [PART_NOUN, PART_VERB, PART_ADJECTIVE].freeze
+IGNORE_WORDS = ['*', 'ん', 'の', 'こと', 'もの', 'わけ'].freeze
 TOP_WORDS_NUM = ENV.fetch('TOP_WORDS_NUM', 100).to_i
 
 OUTPUT_WIDTH = ENV.fetch('OUTPUT_WIDTH', 500).to_i

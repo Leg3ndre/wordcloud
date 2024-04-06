@@ -15,20 +15,38 @@ class Parser
 
   def parse!(str)
     @nm.parse(str) do |node|
-      @words.push node if PARSER_VALID_PARTS.include?(part_of_speech(node))
+      @words.push word_formatted(node) if valid?(node)
     end
   end
 
   def top_words
-    group = @words.group_by { |node| "#{node.surface}:#{node.feature}" }
-                  .map { |_feature, group| [group.first.surface, group.count] }
-                  .sort_by { |count| count[1] }
-                  .reverse
+    @words.group_by { |word| word[:identifier] }
+          .map { |_feature, group| [group.first[:original], group.count] }
+          .sort_by { |count| count[1] }
+          .reverse
   end
 
   private
 
+  def word_formatted(node)
+    original_form = original_form(node)
+    {
+      original: original_form,
+      identifier: "#{original_form}:#{node.feature}",
+    }
+  end
+
+  def valid?(node)
+    return false if IGNORE_WORDS.include?(original_form(node))
+
+    PARSER_VALID_PARTS.include?(part_of_speech(node))
+  end
+
   def part_of_speech(node)
     node.feature.split(',')[0]
+  end
+
+  def original_form(node)
+    node.feature.split(',')[6]
   end
 end
