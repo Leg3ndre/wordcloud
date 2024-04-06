@@ -4,7 +4,6 @@ require './lib/source'
 require './lib/parser'
 
 source = Source.new
-puts source.content
-
 parser = Parser.new
-puts parser.parse(source.content)
+parser.parse!(source.content)
+puts parser.words
